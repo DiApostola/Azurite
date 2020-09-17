@@ -3,6 +3,9 @@
 #
 FROM node:lts-alpine AS builder
 
+# Installing cert package will allow resolving the error to https://registry.npmjs.org/
+RUN apk add --no-cache ca-certificates
+
 WORKDIR /opt/azurite
 
 # Install dependencies first
@@ -22,6 +25,8 @@ RUN npm run build && \
 # Production image
 #
 FROM node:lts-alpine
+# Installing cert package will allow resolving the error to https://registry.npmjs.org/
+RUN apk add --no-cache ca-certificates
 
 ENV NODE_ENV=production
 
